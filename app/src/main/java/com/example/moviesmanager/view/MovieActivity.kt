@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import com.example.moviesmanager.databinding.ActivityMovieBinding
 import com.example.moviesmanager.model.Constant.EXTRA_MOVIE
-import com.example.moviesmanager.model.Constant.INVALID_MOVIE_ID
 import com.example.moviesmanager.model.Constant.VIEW_MOVIE
 import com.example.moviesmanager.model.entity.Movie
 
@@ -45,6 +44,7 @@ class MovieActivity : AppCompatActivity() {
                 address = acb.addressEt.text.toString(),
                 phone = acb.phoneEt.text.toString(),
                 email = acb.emailEt.text.toString(),
+                lastname = ""
             )
             val resultIntent = Intent()
             resultIntent.putExtra(EXTRA_MOVIE, movie)

@@ -20,6 +20,7 @@ class MovieDaoSqlite(context: Context) : MovieDao {
         private const val ADDRESS_COLUMN = "address"
         private const val PHONE_COLUMN = "phone"
         private const val EMAIL_COLUMN = "email"
+        private const val LASTNAME_COLUMN = "lastname"
 
         private const val CREATE_MOVIE_TABLE_STATEMENT =
             "CREATE TABLE IF NOT EXISTS $MOVIE_TABLE ( " +
@@ -68,7 +69,8 @@ class MovieDaoSqlite(context: Context) : MovieDao {
         getString(getColumnIndexOrThrow(NAME_COLUMN)),
         getString(getColumnIndexOrThrow(ADDRESS_COLUMN)),
         getString(getColumnIndexOrThrow(PHONE_COLUMN)),
-        getString(getColumnIndexOrThrow(EMAIL_COLUMN))
+        getString(getColumnIndexOrThrow(EMAIL_COLUMN)),
+        getString(getColumnIndexOrThrow(LASTNAME_COLUMN))
     )
 
     override fun createMovie(movie: Movie) = movieSqliteDatabase.insert(

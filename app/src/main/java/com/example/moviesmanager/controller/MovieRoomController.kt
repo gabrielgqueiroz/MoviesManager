@@ -16,7 +16,7 @@ class MovieRoomController(private val mainActivity: MainActivity) {
             mainActivity,
             MovieRoomDaoDatabase::class.java,
             MOVIE_DATABASE_FILE
-        ).build().getMovieRoomDao()
+        ).fallbackToDestructiveMigration().build().getMovieRoomDao()
     }
 
     fun insertMovie(movie: Movie) {

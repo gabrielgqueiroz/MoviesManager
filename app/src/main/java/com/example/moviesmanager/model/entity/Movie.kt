@@ -2,21 +2,27 @@ package com.example.moviesmanager.model.entity
 
 import android.os.Parcelable
 import androidx.annotation.NonNull
+import androidx.annotation.Nullable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
+import java.time.Year
 
 @Parcelize
 @Entity
 data class Movie(
-    @PrimaryKey(autoGenerate = true)
-    var id: Int?,
-    @NonNull
+    @PrimaryKey
     var name: String,
     @NonNull
-    var address: String,
+    var year: Year,
     @NonNull
-    var phone: String,
+    var producer: String,
     @NonNull
-    var email: String,
+    var durationInMinutes: String,
+    @NonNull
+    var watched: Boolean,
+    @NonNull
+    var rating: Int,
+    @NonNull
+    var genre: Enum<Genre>,
 ): Parcelable
