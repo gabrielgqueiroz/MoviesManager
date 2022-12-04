@@ -9,6 +9,7 @@ import android.util.Log
 import com.example.moviesmanager.R
 import com.example.moviesmanager.model.entity.Movie
 import com.example.moviesmanager.model.dao.MovieDao
+import com.example.moviesmanager.model.entity.Genres
 import java.sql.SQLException
 
 class MovieDaoSqlite(context: Context) : MovieDao {
@@ -17,18 +18,20 @@ class MovieDaoSqlite(context: Context) : MovieDao {
         private const val MOVIE_TABLE = "movie"
         private const val ID_COLUMN = "id"
         private const val NAME_COLUMN = "name"
-        private const val ADDRESS_COLUMN = "address"
-        private const val PHONE_COLUMN = "phone"
-        private const val EMAIL_COLUMN = "email"
-        private const val LASTNAME_COLUMN = "lastname"
+        private const val YEAR_COLUMN = "year"
+        private const val PRODUCER_COLUMN = "producer"
+        private const val DURATION_COLUMN = "duration"
+        private const val WATCHED_COLUMN = "watched"
+        private const val RATING_COLUMN = "rating"
+        private const val GENRE_COLUMN = "genre"
 
         private const val CREATE_MOVIE_TABLE_STATEMENT =
             "CREATE TABLE IF NOT EXISTS $MOVIE_TABLE ( " +
                     "$ID_COLUMN INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "$NAME_COLUMN TEXT NOT NULL, " +
-                    "$ADDRESS_COLUMN TEXT NOT NULL, " +
-                    "$PHONE_COLUMN TEXT NOT NULL, " +
-                    "$EMAIL_COLUMN TEXT NOT NULL );"
+                    "$YEAR_COLUMN TEXT NOT NULL, " +
+                    "$PRODUCER_COLUMN TEXT NOT NULL, " +
+                    "$DURATION_COLUMN TEXT NOT NULL );"
     }
 
     // Referência para o banco de dados
@@ -50,27 +53,29 @@ class MovieDaoSqlite(context: Context) : MovieDao {
 
     private fun Movie.toContentValues() = with(ContentValues()) {
         put(NAME_COLUMN, name)
-        put(ADDRESS_COLUMN, address)
-        put(PHONE_COLUMN, phone)
-        put(EMAIL_COLUMN, email)
+        put(YEAR_COLUMN, year)
+        put(PRODUCER_COLUMN, producer)
+        put(DURATION_COLUMN, durationInMinutes)
         this
     }
 
     private fun movieToContentValues(movie: Movie) = with(ContentValues()) {
         put(NAME_COLUMN, movie.name)
-        put(ADDRESS_COLUMN, movie.address)
-        put(PHONE_COLUMN, movie.phone)
-        put(EMAIL_COLUMN, movie.email)
+        put(YEAR_COLUMN, movie.year)
+        put(PRODUCER_COLUMN, movie.producer)
+        put(DURATION_COLUMN, movie.durationInMinutes)
         this
     }
 
     private fun Cursor.rowToMovie() = Movie(
         getInt(getColumnIndexOrThrow(ID_COLUMN)),
         getString(getColumnIndexOrThrow(NAME_COLUMN)),
-        getString(getColumnIndexOrThrow(ADDRESS_COLUMN)),
-        getString(getColumnIndexOrThrow(PHONE_COLUMN)),
-        getString(getColumnIndexOrThrow(EMAIL_COLUMN)),
-        getString(getColumnIndexOrThrow(LASTNAME_COLUMN))
+        getString(getColumnIndexOrThrow(YEAR_COLUMN)),
+        getString(getColumnIndexOrThrow(PRODUCER_COLUMN)),
+        getString(getColumnIndexOrThrow(DURATION_COLUMN)),
+        getInt(getColumnIndexOrThrow(WATCHED_COLUMN)) == 1,
+        getInt(getColumnIndexOrThrow(RATING_COLUMN)),
+        Genres.valueOf(getString(getColumnIndexOrThrow(GENRE_COLUMN)))
     )
 
     override fun createMovie(movie: Movie) = movieSqliteDatabase.insert(

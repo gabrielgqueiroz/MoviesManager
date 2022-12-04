@@ -13,9 +13,9 @@
         android:textSize="25sp" />
 
     <TextView
-        android:id="@+id/emailTv"
+        android:id="@+id/durationTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="email" />
+        android:text="Duration" />
 
 </LinearLayout>

@@ -4,25 +4,28 @@ import android.os.Parcelable
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 import java.time.Year
 
 @Parcelize
-@Entity
+@Entity(indices = [Index(value = ["name"], unique = true)])
 data class Movie(
-    @PrimaryKey
-    var name: String,
+    @PrimaryKey(autoGenerate = true)
+    var id: Int?,
     @NonNull
-    var year: Year,
+    val name: String,
     @NonNull
-    var producer: String,
+    val year: String,
     @NonNull
-    var durationInMinutes: String,
+    val producer: String,
     @NonNull
-    var watched: Boolean,
+    val durationInMinutes: String,
     @NonNull
-    var rating: Int,
+    val watched: Boolean,
     @NonNull
-    var genre: Enum<Genre>,
+    val rating: Int,
+    @NonNull
+    val genre: Genres,
 ): Parcelable

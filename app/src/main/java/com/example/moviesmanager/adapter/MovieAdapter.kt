@@ -14,7 +14,7 @@ class MovieAdapter(
     context: Context,
     private val movieList: MutableList<Movie>
 ) : ArrayAdapter<Movie>(context, R.layout.tile_movie, movieList) {
-    private data class TileMovieHolder(val nameTv: TextView, val emailTv: TextView)
+    private data class TileMovieHolder(val nameTv: TextView, val durationTv: TextView)
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val movie = movieList[position]
@@ -30,14 +30,14 @@ class MovieAdapter(
 
             val tileMovieHolder = TileMovieHolder(
                 movieTileView.findViewById(R.id.nameTv),
-                movieTileView.findViewById(R.id.emailTv),
+                movieTileView.findViewById(R.id.durationTv),
             )
             movieTileView.tag = tileMovieHolder
         }
 
         with(movieTileView?.tag as TileMovieHolder) {
             nameTv.text = movie.name
-            emailTv.text = movie.email
+            durationTv.text = movie.durationInMinutes
         }
 
         return movieTileView
