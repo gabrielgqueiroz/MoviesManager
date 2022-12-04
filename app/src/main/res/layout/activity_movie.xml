@@ -12,44 +12,97 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="name"
+        android:inputType="text"
+        android:hint="Nome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/addressEt"
+        android:id="@+id/yearEt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPostalAddress"
-        android:hint="address"
+        android:inputType="number"
+        android:hint="Ano"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameEt" />
 
     <EditText
-        android:id="@+id/phoneEt"
+        android:id="@+id/producerEt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="phone"
-        android:hint="phone"
+        android:inputType="text"
+        android:hint="Estúdio ou produtora"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addressEt" />
+        app:layout_constraintTop_toBottomOf="@+id/yearEt" />
 
     <EditText
-        android:id="@+id/emailEt"
+        android:id="@+id/durationInMinutesEt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textEmailAddress"
-        android:hint="email"
+        android:inputType="number"
+        android:hint="Duração"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phoneEt" />
+        app:layout_constraintTop_toBottomOf="@+id/producerEt" />
+
+    <Spinner
+        android:id="@+id/ratingSp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/rating"
+        android:minHeight="48dp"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/durationInMinutesEt"
+        />
+
+
+    <Spinner
+        android:id="@+id/genresSp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/genre"
+        android:minHeight="48dp"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ratingSp"
+        />
+
+    <RadioGroup
+        android:id="@+id/flagWatchedRg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:padding="5dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/genresSp"
+        >
+        <RadioButton
+            android:id="@+id/watchedRb"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Assitido"
+            android:checked="true"
+            />
+
+        <RadioButton
+            android:id="@+id/notWatchedRb"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Não Assistido"
+            />
+    </RadioGroup>
 
     <Button
         android:id="@+id/saveBt"
@@ -58,5 +111,5 @@
         android:text="save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailEt" />
+        app:layout_constraintTop_toBottomOf="@id/flagWatchedRg" />
 </androidx.constraintlayout.widget.ConstraintLayout>
