@@ -8,6 +8,7 @@ import com.example.moviesmanager.model.dao.MovieRoomDao
 import com.example.moviesmanager.model.dao.MovieRoomDao.Constant.MOVIE_DATABASE_FILE
 import com.example.moviesmanager.model.database.MovieDaoSqlite
 import com.example.moviesmanager.model.database.MovieRoomDaoDatabase
+import com.example.moviesmanager.view.ActivityDao
 import com.example.moviesmanager.view.MainActivity
 
 class MovieRoomController(private val mainActivity: MainActivity) {
@@ -29,7 +30,7 @@ class MovieRoomController(private val mainActivity: MainActivity) {
         }.start()
     }
 
-    fun getMovie(id: Int) = movieDaoImpl.retrieveMovie(id)
+    fun getMovie(name: String) = movieDaoImpl.retrieveMovie(name)
     fun getMovies() {
         object: AsyncTask<Unit, Unit, MutableList<Movie>>(){
             override fun doInBackground(vararg params: Unit?): MutableList<Movie> {
