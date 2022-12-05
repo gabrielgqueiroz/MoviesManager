@@ -1,18 +1,22 @@
 package com.example.moviesmanager.view
 
-import android.R
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
+import com.example.moviesmanager.R
+import android.R.layout.simple_spinner_item
+import android.R.layout.simple_spinner_dropdown_item
+import android.widget.Toast
 import com.example.moviesmanager.databinding.ActivityMovieBinding
 import com.example.moviesmanager.model.Constant.EXTRA_MOVIE
 import com.example.moviesmanager.model.Constant.VIEW_MOVIE
 import com.example.moviesmanager.model.entity.Genres
 import com.example.moviesmanager.model.entity.Movie
 import java.time.Year
+import java.util.*
 
 class MovieActivity : AppCompatActivity() {
     private val amb: ActivityMovieBinding by lazy {
@@ -21,22 +25,17 @@ class MovieActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(amb.root)
-        /*ArrayAdapter.createFromResource(
-            this,
-            R.array.genre,
-            R.layout.simple_spinner_item
-        ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
-            amb.genresSp.adapter = adapter
-        }*/
+        val arrayAdapter = ArrayAdapter(
+            this, android.R.layout.simple_list_item_1, Genres.values()
+        )
+        arrayAdapter.setDropDownViewResource(simple_spinner_dropdown_item)
+        amb.genresSp.adapter = arrayAdapter
 
         val receivedMovie = intent.getParcelableExtra<Movie>(EXTRA_MOVIE)
         receivedMovie?.let{ _receivedMovie ->
             with(amb) {
                 with(_receivedMovie) {
-                    Log.v("teste", this.toString())
+                    Log.v("teste", arrayAdapter.getPosition(Genres.ROMANCE).toString())
                     nameEt.setText(name)
                     yearEt.setText(year.toString())
                     producerEt.setText(producer)
@@ -44,8 +43,8 @@ class MovieActivity : AppCompatActivity() {
                     flagWatchedRg.check(
                         if (watched) amb.watchedRb.id else amb.notWatchedRb.id
                     )
-                    ratingSp.prompt = rating.toString()
-                    genresSp.prompt = genre.toString()
+                    ratingSp.setSelection(ratingSp.adapter.getItem(rating).toString().toInt())
+                    genresSp.setSelection(arrayAdapter.getPosition(genre))
                 }
             }
         }
@@ -63,20 +62,51 @@ class MovieActivity : AppCompatActivity() {
         }
 
         amb.saveBt.setOnClickListener {
-            val movie = Movie(
-                id = receivedMovie?.id,
-                name = amb.nameEt.text.toString(),
-                year = amb.yearEt.text.toString(),
-                producer = amb.producerEt.text.toString(),
-                durationInMinutes = amb.durationInMinutesEt.text.toString(),
-                watched = amb.watchedRb.isSelected,
-                rating = amb.ratingSp.selectedItem.toString().toInt(),
-                genre = Genres.valueOf(amb.genresSp.selectedItem.toString().toUpperCase())
-            )
-            val resultIntent = Intent()
-            resultIntent.putExtra(EXTRA_MOVIE, movie)
-            setResult(RESULT_OK, resultIntent)
-            finish()
+            var emptyFields = ""
+            var invalidYear = false
+            var tooLongDuration = false
+            // Optei por deixar a duração até 720 horas (43200 minutos) pois é a duração do filme mais longo até hoje
+
+            with(amb){
+                Log.v("teste", Date().toString())
+                if (nameEt.text.isEmpty()) emptyFields += "Nome, "
+                if (yearEt.text.isEmpty()) emptyFields += "Ano, "
+                else if (yearEt.text.toString().toInt() > Date().year + 10)  invalidYear = true // adicionar data do filme mais antigo
+                if (producerEt.text.isEmpty()) emptyFields += "Estúdio ou produtora, "
+                if (durationInMinutesEt.text.isEmpty()) emptyFields += "Duração "
+                else if (durationInMinutesEt.text.toString().toInt() > 43200) tooLongDuration = true
+            }
+            if (emptyFields != "") {
+                Toast.makeText(
+                    this, "Os campos: " + emptyFields + "estão vazios", Toast.LENGTH_LONG
+                ).show()
+            }
+            else if (invalidYear){
+                Toast.makeText(
+                    this, "Data de lançamento inválida", Toast.LENGTH_LONG
+                ).show()
+            }
+            else if (tooLongDuration){
+                Toast.makeText(
+                    this, "Duração do filme muito longo", Toast.LENGTH_LONG
+                ).show()
+            }
+            else{
+                val movie = Movie(
+                    id = receivedMovie?.id,
+                    name = amb.nameEt.text.toString(),
+                    year = amb.yearEt.text.toString(),
+                    producer = amb.producerEt.text.toString(),
+                    durationInMinutes = amb.durationInMinutesEt.text.toString(),
+                    watched = amb.watchedRb.isSelected,
+                    rating = amb.ratingSp.selectedItem.toString().toInt(),
+                    genre = Genres.valueOf(amb.genresSp.selectedItem.toString().uppercase())
+                )
+                val resultIntent = Intent()
+                resultIntent.putExtra(EXTRA_MOVIE, movie)
+                setResult(RESULT_OK, resultIntent)
+                finish()
+            }
         }
     }
 }
