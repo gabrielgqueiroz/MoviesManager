@@ -53,31 +53,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/producerEt" />
 
-    <Spinner
-        android:id="@+id/ratingSp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/rating"
-        android:minHeight="48dp"
-        android:padding="5dp"
-        android:layout_margin="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/durationInMinutesEt"
-        />
-
-
-    <Spinner
-        android:id="@+id/genresSp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/genre"
-        android:minHeight="48dp"
-        android:padding="5dp"
-        android:layout_margin="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ratingSp"
-        />
-
     <RadioGroup
         android:id="@+id/flagWatchedRg"
         android:layout_width="match_parent"
@@ -86,7 +61,7 @@
         android:padding="5dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/genresSp"
+        app:layout_constraintTop_toBottomOf="@+id/durationInMinutesEt"
         >
         <RadioButton
             android:id="@+id/watchedRb"
@@ -106,6 +81,32 @@
             />
     </RadioGroup>
 
+    <Spinner
+        android:id="@+id/genresSp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/genre"
+        android:minHeight="48dp"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/flagWatchedRg"
+        />
+
+    <Spinner
+        android:id="@+id/ratingSp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/rating"
+        android:minHeight="48dp"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/genresSp"
+        />
+
+
+
     <Button
         android:id="@+id/saveBt"
         android:layout_width="0dp"
@@ -113,5 +114,5 @@
         android:text="save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/flagWatchedRg" />
+        app:layout_constraintTop_toBottomOf="@id/ratingSp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
