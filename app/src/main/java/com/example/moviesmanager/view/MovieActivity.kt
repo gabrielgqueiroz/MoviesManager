@@ -14,6 +14,7 @@ import android.widget.Toast
 import com.example.moviesmanager.controller.MovieRoomController
 import com.example.moviesmanager.databinding.ActivityMovieBinding
 import com.example.moviesmanager.model.Constant.EXTRA_MOVIE
+import com.example.moviesmanager.model.Constant.MOVIES_NAMES
 import com.example.moviesmanager.model.Constant.VIEW_MOVIE
 import com.example.moviesmanager.model.entity.Genres
 import com.example.moviesmanager.model.entity.Movie
@@ -48,7 +49,6 @@ class MovieActivity : AppCompatActivity() {
         receivedMovie?.let{ _receivedMovie ->
             with(amb) {
                 with(_receivedMovie) {
-                    Log.v("teste", year.toString())
                     nameEt.setText(name)
                     nameEt.isEnabled = false
                     yearEt.setText(year)
@@ -79,19 +79,12 @@ class MovieActivity : AppCompatActivity() {
             var emptyFields = ArrayList<String>()
             var invalidYear = false
             var tooLongDuration = false
-            var equalsNames = false
+
             // Optei por deixar a duração até 720 horas (43200 minutos) pois é a duração
             // do filme mais longo até hoje
 
             with(amb){
                 if (nameEt.text.isEmpty()) emptyFields.add("Nome")
-                val moviesNames = mutableListOf<Movie>()
-                for (movie in moviesNames){
-                    if (movie.name == amb.nameEt.text.toString()){
-                        equalsNames = true
-                        break
-                    }
-                }
                 if (yearEt.text.isEmpty()) emptyFields.add("Ano")
                 else if (yearEt.text.toString().toInt() > thisYear + 10 || yearEt.text.toString().toInt() < 1888)
                     // Roundhay Garden Scene de 1888 é considerado o filme mais antigo do mundo
@@ -126,26 +119,32 @@ class MovieActivity : AppCompatActivity() {
                     this, "Por favor avalie o filme", Toast.LENGTH_LONG
                 ).show()
             }
-            else if (equalsNames){
-                Toast.makeText(
-                    this, "O nome ja foi cadastrado", Toast.LENGTH_LONG
-                ).show()
-            }
             else{
-                val movie = Movie(
-                    id = receivedMovie?.id,
-                    name = amb.nameEt.text.toString(),
-                    year = amb.yearEt.text.toString(),
-                    producer = amb.producerEt.text.toString(),
-                    durationInMinutes = amb.durationInMinutesEt.text.toString(),
-                    watched = amb.watchedRb.isChecked,
-                    rating = amb.ratingSp.selectedItem.toString().toInt(),
-                    genre = Genres.valueOf(amb.genresSp.selectedItem.toString().uppercase())
-                )
-                val resultIntent = Intent()
-                resultIntent.putExtra(EXTRA_MOVIE, movie)
-                setResult(RESULT_OK, resultIntent)
-                finish()
+                val moviesNames = intent.getStringArrayExtra(MOVIES_NAMES)
+                val hasName = moviesNames?.find {
+                    it == amb.nameEt.text.toString()
+                }
+                if (hasName == null) {
+                    val movie = Movie(
+                        id = receivedMovie?.id,
+                        name = amb.nameEt.text.toString(),
+                        year = amb.yearEt.text.toString(),
+                        producer = amb.producerEt.text.toString(),
+                        durationInMinutes = amb.durationInMinutesEt.text.toString(),
+                        watched = amb.watchedRb.isChecked,
+                        rating = amb.ratingSp.selectedItem.toString().toInt(),
+                        genre = Genres.valueOf(amb.genresSp.selectedItem.toString().uppercase())
+                    )
+                    val resultIntent = Intent()
+                    resultIntent.putExtra(EXTRA_MOVIE, movie)
+                    setResult(RESULT_OK, resultIntent)
+                    finish()
+                }
+                else {
+                    Toast.makeText(
+                        this, "Nome já cadastrado", Toast.LENGTH_LONG
+                    ).show()
+                }
             }
         }
     }

@@ -17,6 +17,7 @@ import com.example.moviesmanager.controller.MovieController
 import com.example.moviesmanager.controller.MovieRoomController
 import com.example.moviesmanager.databinding.ActivityMainBinding
 import com.example.moviesmanager.model.Constant.EXTRA_MOVIE
+import com.example.moviesmanager.model.Constant.MOVIES_NAMES
 import com.example.moviesmanager.model.Constant.VIEW_MOVIE
 import com.example.moviesmanager.model.entity.Movie
 
@@ -89,7 +90,10 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             R.id.addMovieMi -> {
-                carl.launch(Intent(this, MovieActivity::class.java))
+                carl.launch(
+                    Intent(this, MovieActivity::class.java)
+                        .putExtra(MOVIES_NAMES, Array(movieList.size){ movieList[it].name })
+                )
                 true
             }
             else -> { false }
