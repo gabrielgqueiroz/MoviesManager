@@ -30,13 +30,13 @@ class MovieActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(amb.root)
 
+
         val arrayAdapterGenres = addArrayToSpinner(
             List(Genres.values().size){
-                Genres.valueOf(Genres.values()[it].toString().capitalize()) },
+                Genres.values()[it].genre },
             amb.genresSp,
             "Escolha um Gênero:"
         )
-
         val arrayAdapterRating = addArrayToSpinner(
             List(11) { i -> i * 1}, amb.ratingSp, "Dê uma nota: "
         )
@@ -58,7 +58,7 @@ class MovieActivity : AppCompatActivity() {
                         if (watched) amb.watchedRb.id else amb.notWatchedRb.id
                     )
                     ratingSp.setSelection(arrayAdapterRating.getPosition(rating))
-                    genresSp.setSelection(arrayAdapterGenres.getPosition(genre))
+                    genresSp.setSelection(arrayAdapterGenres.getPosition(genre.genre))
                 }
             }
         }
@@ -74,6 +74,7 @@ class MovieActivity : AppCompatActivity() {
             amb.genresSp.isEnabled = false
             amb.saveBt.visibility = View.GONE
         }
+
 
         amb.saveBt.setOnClickListener {
             var emptyFields = ArrayList<String>()
@@ -94,7 +95,17 @@ class MovieActivity : AppCompatActivity() {
                 else if (durationInMinutesEt.text.toString().toInt() > 43200) tooLongDuration = true
                 true
             }
-            if (emptyFields.isNotEmpty()) {
+            val moviesNames = intent.getStringArrayExtra(MOVIES_NAMES)
+            val hasName = moviesNames?.find {
+                it == amb.nameEt.text.toString().trim()
+            }
+
+            if (hasName != null){
+                Toast.makeText(
+                    this, "Nome já cadastrado", Toast.LENGTH_LONG
+                ).show()
+            }
+            else if (emptyFields.isNotEmpty()) {
                 Toast.makeText(
                     this, "Os campos: " + emptyFields.joinToString(separator = ", ") + " estão vazios", Toast.LENGTH_LONG
                 ).show()
@@ -120,31 +131,24 @@ class MovieActivity : AppCompatActivity() {
                 ).show()
             }
             else{
-                val moviesNames = intent.getStringArrayExtra(MOVIES_NAMES)
-                val hasName = moviesNames?.find {
-                    it == amb.nameEt.text.toString()
-                }
-                if (hasName == null) {
-                    val movie = Movie(
-                        id = receivedMovie?.id,
-                        name = amb.nameEt.text.toString(),
-                        year = amb.yearEt.text.toString(),
-                        producer = amb.producerEt.text.toString(),
-                        durationInMinutes = amb.durationInMinutesEt.text.toString(),
-                        watched = amb.watchedRb.isChecked,
-                        rating = amb.ratingSp.selectedItem.toString().toInt(),
-                        genre = Genres.valueOf(amb.genresSp.selectedItem.toString().uppercase())
-                    )
-                    val resultIntent = Intent()
-                    resultIntent.putExtra(EXTRA_MOVIE, movie)
-                    setResult(RESULT_OK, resultIntent)
-                    finish()
-                }
-                else {
-                    Toast.makeText(
-                        this, "Nome já cadastrado", Toast.LENGTH_LONG
-                    ).show()
-                }
+
+                val genreSelected = Genres.values().find { amb.genresSp.selectedItem.toString() == it.genre }
+
+                val movie = Movie(
+                    id = receivedMovie?.id,
+                    name = amb.nameEt.text.toString().trim(),
+                    year = amb.yearEt.text.toString(),
+                    producer = amb.producerEt.text.toString(),
+                    durationInMinutes = amb.durationInMinutesEt.text.toString(),
+                    watched = amb.watchedRb.isChecked,
+                    rating = amb.ratingSp.selectedItem.toString().toInt(),
+                    genre = Genres.valueOf(genreSelected!!.name)
+                )
+                val resultIntent = Intent()
+                resultIntent.putExtra(EXTRA_MOVIE, movie)
+                setResult(RESULT_OK, resultIntent)
+                finish()
+
             }
         }
     }
