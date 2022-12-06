@@ -13,7 +13,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.moviesmanager.R
 import com.example.moviesmanager.adapter.MovieAdapter
-import com.example.moviesmanager.controller.MovieController
 import com.example.moviesmanager.controller.MovieRoomController
 import com.example.moviesmanager.databinding.ActivityMainBinding
 import com.example.moviesmanager.model.Constant.EXTRA_MOVIE
@@ -26,15 +25,13 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    // Data source
     private val movieList: MutableList<Movie> = mutableListOf()
 
-    // Adapter
+
     private lateinit var movieAdapter: MovieAdapter
 
     private lateinit var carl: ActivityResultLauncher<Intent>
 
-    // Controller
     private val movieController: MovieRoomController by lazy {
         MovieRoomController(this)
     }
@@ -56,7 +53,6 @@ class MainActivity : AppCompatActivity() {
                     if (_movie.id != null) {
                         val position = movieList.indexOfFirst { it.id == _movie.id }
                         if (position != -1) {
-                            // Alterar na posição
                             movieController.editMovie(_movie)
                         }
                     }
@@ -78,7 +74,6 @@ class MainActivity : AppCompatActivity() {
                 startActivity(movieIntent)
             }
 
-        // Buscando contatos no banco
         movieController.getMovies()
     }
 
@@ -113,12 +108,10 @@ class MainActivity : AppCompatActivity() {
         val movie = movieList[position]
         return when(item.itemId) {
             R.id.removeMovieMi -> {
-                // Remove o contato
                 movieController.removeMovie(movie)
                 true
             }
             R.id.editMovieMi -> {
-                // Chama a tela para editar o contato
                 val movieIntent = Intent(this, MovieActivity::class.java)
                 movieIntent.putExtra(EXTRA_MOVIE, movie)
                 movieIntent.putExtra(VIEW_MOVIE, false)

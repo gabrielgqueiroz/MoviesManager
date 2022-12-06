@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="genre" ></string-array>
+    <string-array name="genre" />
     <string-array name="rating" />
     <string name="app_name">MoviesManager</string>
     <string name="close">Fechar</string>
-    <string name="calculate">Calculate</string>
-    <string name="add_person">Add Person</string>
     <string name="name">Nome</string>
-    <string name="paid_value">Valor pago</string>
-    <string name="_0_00">0.00</string>
     <string name="desc">Descrição</string>
     <string name="save">salvar</string>
-    <string name="paid_price">Preço Pago</string>
-    <string name="price_to_pay">Preço para pagar</string>
-    <string name="price_to_receive">Preço para receber</string>
     <string name="remove">Remover</string>
     <string name="edit">Editar</string>
-    <string name="valid_inputs_person_activity">Certifique que o nome e o valor foi inserido</string>
-    <string name="dot_00">%1$s.00</string>
-    <string name="name_view_person">Nome: %1$s</string>
-    <string name="paid_value_view_person">Valor Pago: R$ %1$s</string>
-    <string name="desc_view_person">Descrição: %1$s</string>
+    <string name="year">Ano</string>
+    <string name="studio_producer">Estúdio ou produtora</string>
+    <string name="duration_minutes">Duração (em minutos)</string>
+    <string name="watched">Assitido</string>
+    <string name="not_watched">Não Assistido</string>
+    <string name="producer">producer</string>
+    <string name="add_movie">Adicionar filme</string>
+    <string name="chose_genre">Escolha um Gênero:</string>
+    <string name="rating_movie">Dê uma nota:</string>
+    <string name="duration">Duração</string>
+    <string name="error_name_exists">Nome já cadastrado</string>
+    <string name="error_invalid_year">Data de lançamento inválida</string>
+    <string name="error_invalid_duration">Duração do filme muito longo</string>
+    <string name="error_chose_gender">Por favor escolha um gênero</string>
+    <string name="error_rating_movie">Por favor avalie o filme</string>
 
 </resources>

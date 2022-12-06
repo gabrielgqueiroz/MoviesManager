@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:hint="Nome"
+        android:hint="@string/name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,7 +25,7 @@
         android:ems="10"
         android:inputType="number"
         android:maxLength="4"
-        android:hint="Ano"
+        android:hint="@string/year"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameEt" />
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:hint="Estúdio ou produtora"
+        android:hint="@string/studio_producer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/yearEt" />
@@ -48,7 +48,7 @@
         android:ems="10"
         android:maxLength="5"
         android:inputType="number"
-        android:hint="Duração (em minutos)"
+        android:hint="@string/duration_minutes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/producerEt" />
@@ -68,7 +68,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="Assitido"
+            android:text="@string/watched"
             android:checked="true"
             />
 
@@ -77,7 +77,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="Não Assistido"
+            android:text="@string/not_watched"
             />
     </RadioGroup>
 
@@ -111,7 +111,7 @@
         android:id="@+id/saveBt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="save"
+        android:text="@string/save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ratingSp" />

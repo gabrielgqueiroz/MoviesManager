@@ -3,10 +3,8 @@ package com.example.moviesmanager.controller
 import android.os.AsyncTask
 import androidx.room.Room
 import com.example.moviesmanager.model.entity.Movie
-import com.example.moviesmanager.model.dao.MovieDao
 import com.example.moviesmanager.model.dao.MovieRoomDao
 import com.example.moviesmanager.model.dao.MovieRoomDao.Constant.MOVIE_DATABASE_FILE
-import com.example.moviesmanager.model.database.MovieDaoSqlite
 import com.example.moviesmanager.model.database.MovieRoomDaoDatabase
 import com.example.moviesmanager.view.MainActivity
 

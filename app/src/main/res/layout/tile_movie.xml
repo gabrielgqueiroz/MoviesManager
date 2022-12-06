@@ -9,13 +9,13 @@
         android:id="@+id/nameTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="name"
+        android:text="@string/name"
         android:textSize="25sp" />
 
     <TextView
         android:id="@+id/producerTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="producer" />
+        android:text="@string/producer" />
 
 </LinearLayout>

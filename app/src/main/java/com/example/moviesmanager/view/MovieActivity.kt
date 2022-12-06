@@ -3,15 +3,12 @@ package com.example.moviesmanager.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
-import com.example.moviesmanager.R
-import android.R.layout.simple_spinner_item
 import android.R.layout.simple_spinner_dropdown_item
 import android.widget.Spinner
 import android.widget.Toast
-import com.example.moviesmanager.controller.MovieRoomController
+import com.example.moviesmanager.R
 import com.example.moviesmanager.databinding.ActivityMovieBinding
 import com.example.moviesmanager.model.Constant.EXTRA_MOVIE
 import com.example.moviesmanager.model.Constant.MOVIES_NAMES
@@ -30,15 +27,14 @@ class MovieActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(amb.root)
 
-
         val arrayAdapterGenres = addArrayToSpinner(
             List(Genres.values().size){
                 Genres.values()[it].genre },
             amb.genresSp,
-            "Escolha um Gênero:"
+            getString(R.string.chose_genre)
         )
         val arrayAdapterRating = addArrayToSpinner(
-            List(11) { i -> i * 1}, amb.ratingSp, "Dê uma nota: "
+            List(11) { i -> i * 1}, amb.ratingSp, getString(R.string.rating_movie)
         )
         // Tive que fazer isso porque o Date().year retornava 122 e outros como o
         // LocalDate fuciona só a partir da api 26
@@ -77,21 +73,21 @@ class MovieActivity : AppCompatActivity() {
 
 
         amb.saveBt.setOnClickListener {
-            var emptyFields = ArrayList<String>()
+            val emptyFields = ArrayList<String>()
             var invalidYear = false
-            var tooLongDuration = false
-
             // Optei por deixar a duração até 720 horas (43200 minutos) pois é a duração
             // do filme mais longo até hoje
+            var tooLongDuration = false
+
 
             with(amb){
-                if (nameEt.text.isEmpty()) emptyFields.add("Nome")
-                if (yearEt.text.isEmpty()) emptyFields.add("Ano")
+                if (nameEt.text.isEmpty()) emptyFields.add(getString(R.string.name))
+                if (yearEt.text.isEmpty()) emptyFields.add(getString(R.string.year))
                 else if (yearEt.text.toString().toInt() > thisYear + 10 || yearEt.text.toString().toInt() < 1888)
                     // Roundhay Garden Scene de 1888 é considerado o filme mais antigo do mundo
                     invalidYear = true
-                if (producerEt.text.isEmpty()) emptyFields.add("Estúdio ou produtora")
-                if (durationInMinutesEt.text.isEmpty()) emptyFields.add("Duração")
+                if (producerEt.text.isEmpty()) emptyFields.add(getString(R.string.studio_producer))
+                if (durationInMinutesEt.text.isEmpty()) emptyFields.add(getString(R.string.duration))
                 else if (durationInMinutesEt.text.toString().toInt() > 43200) tooLongDuration = true
                 true
             }
@@ -102,7 +98,7 @@ class MovieActivity : AppCompatActivity() {
 
             if (hasName != null){
                 Toast.makeText(
-                    this, "Nome já cadastrado", Toast.LENGTH_LONG
+                    this, getString(R.string.error_name_exists), Toast.LENGTH_LONG
                 ).show()
             }
             else if (emptyFields.isNotEmpty()) {
@@ -112,22 +108,22 @@ class MovieActivity : AppCompatActivity() {
             }
             else if (invalidYear){
                 Toast.makeText(
-                    this, "Data de lançamento inválida", Toast.LENGTH_LONG
+                    this, getString(R.string.error_invalid_year), Toast.LENGTH_LONG
                 ).show()
             }
             else if (tooLongDuration){
                 Toast.makeText(
-                    this, "Duração do filme muito longo", Toast.LENGTH_LONG
+                    this, getString(R.string.error_invalid_duration), Toast.LENGTH_LONG
                 ).show()
             }
             else if (amb.genresSp.selectedItemPosition == 0){
                 Toast.makeText(
-                    this, "Por favor escolha um gênero", Toast.LENGTH_LONG
+                    this, getString(R.string.error_chose_gender), Toast.LENGTH_LONG
                 ).show()
             }
             else if (amb.ratingSp.selectedItemPosition == 0 ){
                 Toast.makeText(
-                    this, "Por favor avalie o filme", Toast.LENGTH_LONG
+                    this, getString(R.string.error_rating_movie), Toast.LENGTH_LONG
                 ).show()
             }
             else{
