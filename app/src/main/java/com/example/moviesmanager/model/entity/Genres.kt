@@ -1,14 +1,15 @@
 package com.example.moviesmanager.model.entity
 
 enum class Genres(val genre:String) {
-    ROMANCE("Romance"),
+    ACAO("Ação"),
     AVENTURA("Aventura"),
-    TERROR("Terror"),
-    SUSPENSE("Suspense"),
-    DRAMA("Drama"),
-    FICCAO_CIENTIFICA("Ficção Científica"),
     COMEDIA("Comédia"),
     DOCUMENTARIO("Documentário"),
-    ACAO("Ação"),
+    DRAMA("Drama"),
     FANTASIA("Fantasia"),
+    FICCAO_CIENTIFICA("Ficção Científica"),
+    ROMANCE("Romance"),
+    SUSPENSE("Suspense"),
+    TERROR("Terror"),
+
 }

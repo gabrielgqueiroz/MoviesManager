@@ -8,7 +8,6 @@ import com.example.moviesmanager.model.dao.MovieRoomDao
 import com.example.moviesmanager.model.dao.MovieRoomDao.Constant.MOVIE_DATABASE_FILE
 import com.example.moviesmanager.model.database.MovieDaoSqlite
 import com.example.moviesmanager.model.database.MovieRoomDaoDatabase
-import com.example.moviesmanager.view.ActivityDao
 import com.example.moviesmanager.view.MainActivity
 
 class MovieRoomController(private val mainActivity: MainActivity) {
