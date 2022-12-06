@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.R.layout.simple_spinner_dropdown_item
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Spinner
 import android.widget.Toast
 import com.example.moviesmanager.R
@@ -146,6 +148,21 @@ class MovieActivity : AppCompatActivity() {
                 finish()
 
             }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_secondary, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.closeMi -> {
+                finish()
+                true
+            }
+            else -> { false }
         }
     }
 
